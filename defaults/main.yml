@@ -7,8 +7,8 @@ clamav_packages: []
 
 # General settings
 clamav_config_folder: '/etc/clamav'
-clamav_config_owner: 'root'
-clamav_config_group: 'root'
+clamav_config_owner: 'clamav'
+clamav_config_group: 'clamav'
 clamav_config_mode: '0600'
 
 clamav_clamd_service_name: 'clamav-daemon'
