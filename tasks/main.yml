@@ -14,3 +14,10 @@
   tags:
     - 'install'
     - 'clamav'
+
+
+- name: Execute configuration tasks
+  include: "{{ role_path }}/tasks/configure.yml"
+  tags:
+    - 'configure'
+    - 'clamav'

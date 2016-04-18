@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+
+DatabaseOwner {{ clamav_freshclam_database_owner }}
+UpdateLogFile {{ clamav_freshclam_update_log_file }}
+LogVerbose {{ clamav_freshclam_log_verbose }}
+LogSyslog {{ clamav_freshclam_log_syslog }}
+LogFacility {{ clamav_freshclam_log_facility }}
+LogFileMaxSize {{ clamav_freshclam_log_file_max_size }}
+LogRotate {{ clamav_freshclam_log_rotate }}
+LogTime {{ clamav_freshclam_log_time }}
+Foreground {{ clamav_freshclam_foreground }}
+Debug {{ clamav_freshclam_debug }}
+MaxAttempts {{ clamav_freshclam_max_attempts }}
+DatabaseDirectory {{ clamav_freshclam_database_directory }}
+DNSDatabaseInfo {{ clamav_freshclam_dns_database_info }}
+AllowSupplementaryGroups {{ clamav_freshclam_allow_supplementary_groups }}
+PidFile {{ clamav_freshclam_pid_file }}
+ConnectTimeout {{ clamav_freshclam_connect_timeout }}
+ReceiveTimeout {{ clamav_freshclam_receive_timeout }}
+TestDatabases {{ clamav_freshclam_test_databases }}
+ScriptedUpdates {{ clamav_freshclam_scripted_updates }}
+CompressLocalDatabase {{ clamav_freshclam_compress_local_database }}
+Bytecode {{ clamav_freshclam_bytecode }}
+Checks {{ clamav_freshclam_checks }}
+{% if clamav_freshclam_database_mirror is defined %}
+{% for mirror in clamav_freshclam_database_mirror %}
+DatabaseMirror {{ mirror }}
+{% endfor %}
+{% endif %}
