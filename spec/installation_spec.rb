@@ -10,7 +10,7 @@ describe 'clamav Ansible role' do
     packages = Array[]
 
     if ['debian', 'ubuntu'].include?(os[:family])
-        packages = Array[ 'apt' ]
+        packages = Array[ 'clamav', 'clamav-base', 'clamav-daemon' ]
     end
 
     it 'install role packages' do

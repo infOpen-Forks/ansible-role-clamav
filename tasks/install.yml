@@ -1,0 +1,20 @@
+---
+
+- name: Install user packages
+  become: True
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default(clamav_packages_state) }}"
+  register: 'clamav_install_user_packages'
+  with_items: "{{ clamav_packages }}"
+  when: "{{ (clamav_packages | length) > 0 }}"
+
+
+- name: Install default role packages
+  become: True
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default(clamav_packages_state) }}"
+  register: 'clamav_install_default_packages'
+  with_items: "{{ clamav_os_default_packages }}"
+  when: "{{ (clamav_packages | length) == 0 }}"

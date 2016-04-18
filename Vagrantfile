@@ -14,7 +14,9 @@ ANSIBLE_GIT_REPOSITORY = ENV['ANSIBLE_GIT_REPOSITORY'] \
 # meta/main.yml)
 VMS = {
   :trusty => {
-    :box => "ubuntu/trusty64"
+    :box => "ubuntu/trusty64",
+    :cpus => 1,
+    :memory => 1024
   }
 }
 
@@ -26,6 +28,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # Set proper box
       vm_config.vm.box = options[:box]
+
+      # Increase VM resources
+      config.vm.provider "virtualbox" do |vm_prop|
+        vm_prop.memory = options[:memory]
+        vm_prop.cpus = options[:cpus]
+      end
 
       # Update system and install requirements
       vm_config.vm.provision "shell" do |sh|
