@@ -6,13 +6,72 @@
 clamav_packages: []
 
 # General settings
+clamav_log_folder: '/var/log/clamav'
 clamav_config_folder: '/etc/clamav'
 clamav_config_owner: 'clamav'
 clamav_config_group: 'clamav'
-clamav_config_mode: '0600'
+clamav_config_mode: '0644'
 
+clamav_clamd_binary: '/usr/sbin/clamd'
+clamav_freshclam_binary: '/usr/bin/freshclam'
 clamav_clamd_service_name: 'clamav-daemon'
 clamav_freshclam_service_name: 'clamav-freshclam'
+clamav_scan_binary: '/usr/sbin/clamscan'
+
+# Virus database update cron job
+clamav_cron_update_create_task: True
+clamav_cron_update_minute: 2
+clamav_cron_update_hour: 15
+clamav_cron_update_weekday: '*'
+clamav_cron_update_day: '*'
+clamav_cron_update_month: '*'
+
+# Scan cron job
+clamav_cron_scan_create_task: True
+clamav_cron_scan_minute: 2
+clamav_cron_scan_hour: 30
+clamav_cron_scan_weekday: '*'
+clamav_cron_scan_day: '*'
+clamav_cron_scan_month: '*'
+clamav_cron_scan_dest:
+  - '/data'
+  - '/tmp'
+clamav_cron_scan_exclude_dirs: []
+
+# Logrotate configuration
+clamav_logrotate_config:
+  - filename: '/etc/logrotate.d/clamav-daemon'
+    log_pattern: '/var/log/clamav/clamav.log'
+    options:
+      - 'rotate 12'
+      - 'weekly'
+      - 'compress'
+      - 'delaycompress'
+      - 'create 640 clamav adm'
+      - 'postrotate'
+      - '/etc/init.d/clamav-daemon reload-log > /dev/null'
+      - 'endscript'
+  - filename: '/etc/logrotate.d/clamav-freshclam'
+    log_pattern: '/var/log/clamav/freshclam.log'
+    options:
+      - 'rotate 12'
+      - 'weekly'
+      - 'compress'
+      - 'delaycompress'
+      - 'missingok'
+      - 'create 640 clamav adm'
+      - 'postrotate'
+      - '/etc/init.d/clamav-freshclam reload-log > /dev/null'
+      - 'endscript'
+  - filename: '/etc/logrotate.d/clamav-cron-jobs'
+    log_pattern: '/var/log/clamav/cron*.log'
+    options:
+      - 'rotate 7'
+      - 'daily'
+      - 'compress'
+      - 'delaycompress'
+      - 'missingok'
+      - 'create 640 clamav adm'
 
 # Clamd config file variables
 clamav_clamd_local_socket: '/var/run/clamav/clamd.ctl'
@@ -86,7 +145,7 @@ clamav_clamd_stats_pe_disabled: 'true'
 clamav_clamd_stats_host_id: 'auto'
 clamav_clamd_stats_timeout: 10
 clamav_clamd_stream_max_length: '25M'
-clamav_clamd_log_file: '/var/log/clamav/clamav.log'
+clamav_clamd_log_file: "{{ clamav_log_folder }}/clamav.log"
 clamav_clamd_log_time: 'true'
 clamav_clamd_log_file_unlock: 'false'
 clamav_clamd_log_file_max_size: 0
@@ -98,7 +157,7 @@ clamav_clamd_cross_filesystems: 'true'
 
 # Fresclam config file variables
 clamav_freshclam_database_owner: 'clamav'
-clamav_freshclam_update_log_file: '/var/log/clamav/freshclam.log'
+clamav_freshclam_update_log_file: "{{ clamav_log_folder }}/freshclam.log"
 clamav_freshclam_log_verbose: 'false'
 clamav_freshclam_log_syslog: 'false'
 clamav_freshclam_log_facility: 'LOG_LOCAL6'
@@ -120,5 +179,5 @@ clamav_freshclam_compress_local_database: 'no'
 clamav_freshclam_bytecode: 'true'
 clamav_freshclam_checks: 24
 clamav_freshclam_database_mirror:
-  - 'db.local.clamav.net'
   - 'database.clamav.net'
+  - 'db.local.clamav.net'

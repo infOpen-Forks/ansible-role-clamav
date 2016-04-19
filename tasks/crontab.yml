@@ -1,0 +1,42 @@
+---
+
+- name: Create crontab for virus database update
+  become: True
+  cron:
+    name: 'Update the clamav virus database'
+    cron_file: 'update_clamav_virus_database'
+    minute: "{{ clamav_cron_update_minute }}"
+    hour: "{{ clamav_cron_update_hour }}"
+    weekday: "{{ clamav_cron_update_weekday }}"
+    day: "{{ clamav_cron_update_day }}"
+    month: "{{ clamav_cron_update_month }}"
+    job: "{{ clamav_freshclam_binary
+              ~ ' --user=' ~ clamav_config_owner
+              ~ ' --datadir=' ~ clamav_clamd_database_directory
+              ~ ' --log=' ~ clamav_log_folder ~ '/cron_update_job.log'}}"
+    user: 'root'
+  when: "{{ clamav_cron_update_create_task }}"
+
+
+- name: Create crontab for scan
+  become: True
+  cron:
+    name: 'Do a filesystem scan'
+    cron_file: 'run_clamav_scan'
+    minute: "{{ clamav_cron_scan_minute }}"
+    hour: "{{ clamav_cron_scan_hour }}"
+    weekday: "{{ clamav_cron_scan_weekday }}"
+    day: "{{ clamav_cron_scan_day }}"
+    month: "{{ clamav_cron_scan_month }}"
+    job: "{{ clamav_scan_binary
+              ~ ' -ri ' ~ (clamav_cron_scan_dest | join(' '))
+              ~ ' --datadir=' ~ clamav_clamd_database_directory
+              ~ (clamav_cron_scan_dest | join(' '))
+              ~ (clamav_cron_scan_exclude_dirs | map('regex_replace',
+                                                     '^(.*)$',
+                                                     ' --exclude-dir=\\1' )
+                                               | list
+                                               | join(''))
+              ~ ' --log=' ~ clamav_log_folder ~ '/cron_scan_job.log'}}"
+    user: 'root'
+  when: "{{ clamav_cron_scan_create_task }}"

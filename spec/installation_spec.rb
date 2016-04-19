@@ -16,7 +16,7 @@ describe 'clamav Ansible role' do
     freshclam_service_name = ''
     clamd_config_file = ''
     freshclam_config_file = ''
-    clamav_config_mode = 600
+    clamav_config_mode = 644
 
     if ['debian', 'ubuntu'].include?(os[:family])
         packages = Array[ 'clamav', 'clamav-base', 'clamav-daemon' ]
@@ -78,6 +78,46 @@ describe 'clamav Ansible role' do
         it { should be_owned_by(clamav_user) }
         it { should be_grouped_into(clamav_group) }
         it { should be_mode(clamav_config_mode) }
+    end
+
+    describe file('/etc/cron.d/update_clamav_virus_database') do
+        it { should exist }
+        it { should be_file }
+        it { should be_owned_by('root') }
+        it { should be_grouped_into('root') }
+        it { should be_mode(644) }
+    end
+
+    describe file('/etc/cron.d/run_clamav_scan') do
+        it { should exist }
+        it { should be_file }
+        it { should be_owned_by('root') }
+        it { should be_grouped_into('root') }
+        it { should be_mode(644) }
+    end
+
+    describe file('/etc/logrotate.d/clamav-cron-jobs') do
+        it { should exist }
+        it { should be_file }
+        it { should be_owned_by('root') }
+        it { should be_grouped_into('root') }
+        it { should be_mode(644) }
+    end
+
+    describe file('/etc/logrotate.d/clamav-daemon') do
+        it { should exist }
+        it { should be_file }
+        it { should be_owned_by('root') }
+        it { should be_grouped_into('root') }
+        it { should be_mode(644) }
+    end
+
+    describe file('/etc/logrotate.d/clamav-freshclam') do
+        it { should exist }
+        it { should be_file }
+        it { should be_owned_by('root') }
+        it { should be_grouped_into('root') }
+        it { should be_mode(644) }
     end
 end
 
