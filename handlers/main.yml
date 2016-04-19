@@ -2,3 +2,15 @@
 
 # Handlers main file for clamav role
 
+- name: 'Restart clamd'
+  become: True
+  service:
+    name: "{{ clamav_clamd_service_name }}"
+    state: 'restarted'
+
+
+- name: 'Restart freshclam'
+  become: True
+  service:
+    name: "{{ clamav_freshclam_service_name }}"
+    state: 'restarted'
