@@ -23,13 +23,13 @@
     - 'clamav'
 
 
-- name: Get Clamav signatures once
+- name: Update Clamav signatures if packages updated
   become: True
   command: >
     {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
       --datadir {{ clamav_clamd_database_directory }}
-  args:
-    creates: "{{ clamav_clamd_database_directory }}/mirrors.dat"
+  when: "{{ clamav_install_user_packages.changed
+            or clamav_install_default_packages.changed }}"
   tags:
     - 'configure'
     - 'clamav'
