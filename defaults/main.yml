@@ -20,16 +20,16 @@ clamav_scan_binary: '/usr/sbin/clamscan'
 
 # Virus database update cron job
 clamav_cron_update_create_task: True
-clamav_cron_update_minute: 2
-clamav_cron_update_hour: 15
+clamav_cron_update_minute: 0
+clamav_cron_update_hour: 2
 clamav_cron_update_weekday: '*'
 clamav_cron_update_day: '*'
 clamav_cron_update_month: '*'
 
 # Scan cron job
 clamav_cron_scan_create_task: True
-clamav_cron_scan_minute: 2
-clamav_cron_scan_hour: 30
+clamav_cron_scan_minute: 30
+clamav_cron_scan_hour: 2
 clamav_cron_scan_weekday: '*'
 clamav_cron_scan_day: '*'
 clamav_cron_scan_month: '*'
