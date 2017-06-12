@@ -16,7 +16,7 @@ VMS = {
   :trusty => {
     :box => "ubuntu/trusty64",
     :cpus => 1,
-    :memory => 1024
+    :memory => 2048
   }
 }
 
