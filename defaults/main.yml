@@ -74,6 +74,10 @@ clamav_logrotate_config:
       - 'create 640 clamav adm'
 
 # Clamd config file variables
+# Note: either clamav_clamd_tcp_socket or clamav_clamd_local_socket should
+# be commented out, or clamd will fail to start successfully.
+
+#clamav_clamd_tcp_socket: 3310
 clamav_clamd_local_socket: '/var/run/clamav/clamd.ctl'
 clamav_clamd_fix_stale_socket: 'true'
 clamav_clamd_local_socket_group: 'clamav'
