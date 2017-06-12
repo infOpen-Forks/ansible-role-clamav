@@ -19,6 +19,8 @@ This role contains two tests methods :
 - install [Vagrant](https://www.vagrantup.com)
 - install [Vagrant serverspec plugin](https://github.com/jvoorhis/vagrant-serverspec)
     $ vagrant plugin install vagrant-serverspec
+- install [Vagrant triggers plugin](https://github.com/emyl/vagrant-triggers)
+    $ vagrant plugin install vagrant-triggers
 - install ruby dependencies
     $ bundle install
 
