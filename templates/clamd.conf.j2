@@ -41,6 +41,9 @@ LeaveTemporaryFiles {{ clamav_clamd_leave_temporary_files }}
 AlgorithmicDetection {{ clamav_clamd_algorithmic_detection }}
 ScanELF {{ clamav_clamd_scan_elf }}
 IdleTimeout {{ clamav_clamd_idle_timeout }}
+{% for exclude_path in clamav_clamd_exclude_paths %}
+ExcludePath {{ exclude_path }}
+{% endfor %}
 PhishingSignatures {{ clamav_clamd_phishing_signatures }}
 PhishingScanURLs {{ clamav_clamd_phishing_scan_urls }}
 PhishingAlwaysBlockSSLMismatch {{ clamav_clamd_phishing_always_block_ssl_mismatch }}

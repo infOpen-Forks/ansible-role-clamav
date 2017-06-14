@@ -36,7 +36,7 @@ clamav_cron_scan_month: '*'
 clamav_cron_scan_dest:
   - '/data'
   - '/tmp'
-clamav_cron_scan_exclude_dirs: []
+clamav_cron_scan_exclude_dirs: "{{ clamav_clamd_exclude_paths }}"
 
 # Logrotate configuration
 clamav_logrotate_config:
@@ -115,6 +115,7 @@ clamav_clamd_leave_temporary_files: 'false'
 clamav_clamd_algorithmic_detection: 'true'
 clamav_clamd_scan_elf: 'true'
 clamav_clamd_idle_timeout: 30
+clamav_clamd_exclude_paths: []
 clamav_clamd_phishing_signatures: 'true'
 clamav_clamd_phishing_scan_urls: 'true'
 clamav_clamd_phishing_always_block_ssl_mismatch: 'false'
