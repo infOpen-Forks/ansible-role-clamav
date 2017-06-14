@@ -110,6 +110,15 @@ This role contains two tests methods :
           - 'create 640 clamav adm'
 
     # Clamd config file variables
+    # Note: if clamav_clamd_socket_type is 'local', then the variables
+    #   clamav_clamd_local_socket
+    #   clamav_clamd_fix_stale_socket
+    #   clamav_clamd_local_socket_group
+    #   clamav_clamd_local_socket_mode
+    # will be included in the clamd config. Otherwise,
+    #   clamav_clamd_tcp_socket
+    # will be included.
+    clamav_clamd_socket_type: 'local'
     clamav_clamd_local_socket: '/var/run/clamav/clamd.ctl'
     clamav_clamd_fix_stale_socket: 'true'
     clamav_clamd_local_socket_group: 'clamav'

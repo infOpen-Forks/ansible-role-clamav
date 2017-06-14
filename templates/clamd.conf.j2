@@ -1,9 +1,13 @@
 # {{ ansible_managed }}
 
+{% if clamav_clamd_socket_type == 'local' %}
 LocalSocket {{ clamav_clamd_local_socket }}
 FixStaleSocket {{ clamav_clamd_fix_stale_socket }}
 LocalSocketGroup {{ clamav_clamd_local_socket_group }}
 LocalSocketMode {{ clamav_clamd_local_socket_mode }}
+{% else %}
+TCPSocket {{ clamav_clamd_tcp_socket }}
+{% endif %}
 User {{ clamav_clamd_user }}
 AllowSupplementaryGroups {{ clamav_clamd_allow_supplementary_groups }}
 ScanMail {{ clamav_clamd_scan_mail }}
