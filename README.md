@@ -123,6 +123,7 @@ This role contains two tests methods :
     clamav_clamd_fix_stale_socket: 'true'
     clamav_clamd_local_socket_group: 'clamav'
     clamav_clamd_local_socket_mode: 666
+    clamav_clamd_tcp_socket: 3310
     clamav_clamd_user: 'clamav'
     clamav_clamd_allow_supplementary_groups: 'true'
     clamav_clamd_scan_mail: 'true'
