@@ -28,8 +28,8 @@
   command: >
     {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
       --datadir {{ clamav_clamd_database_directory }}
-  when: "{{ clamav_install_user_packages.changed
-            or clamav_install_default_packages.changed }}"
+  when: clamav_install_user_packages.changed or
+        clamav_install_default_packages.changed
   tags:
     - 'configure'
     - 'clamav'
