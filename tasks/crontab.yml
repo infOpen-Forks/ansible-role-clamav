@@ -30,8 +30,7 @@
     month: "{{ clamav_cron_scan_month }}"
     job: "{{ clamav_scan_binary
               ~ ' -ri ' ~ (clamav_cron_scan_dest | join(' '))
-              ~ ' --datadir=' ~ clamav_clamd_database_directory
-              ~ (clamav_cron_scan_dest | join(' '))
+              ~ ' --database=' ~ clamav_clamd_database_directory
               ~ (clamav_cron_scan_exclude_dirs | map('regex_replace',
                                                      '^(.*)$',
                                                      ' --exclude-dir=\\1' )
