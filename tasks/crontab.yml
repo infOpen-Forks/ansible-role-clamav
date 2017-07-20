@@ -15,7 +15,7 @@
               ~ ' --datadir=' ~ clamav_clamd_database_directory
               ~ ' --log=' ~ clamav_log_folder ~ '/cron_update_job.log'}}"
     user: 'root'
-  when: "{{ clamav_cron_update_create_task }}"
+  when: clamav_cron_update_create_task
 
 
 - name: Create crontab for scan
@@ -30,8 +30,7 @@
     month: "{{ clamav_cron_scan_month }}"
     job: "{{ clamav_scan_binary
               ~ ' -ri ' ~ (clamav_cron_scan_dest | join(' '))
-              ~ ' --datadir=' ~ clamav_clamd_database_directory
-              ~ (clamav_cron_scan_dest | join(' '))
+              ~ ' --database=' ~ clamav_clamd_database_directory
               ~ (clamav_cron_scan_exclude_dirs | map('regex_replace',
                                                      '^(.*)$',
                                                      ' --exclude-dir=\\1' )
@@ -39,4 +38,4 @@
                                                | join(''))
               ~ ' --log=' ~ clamav_log_folder ~ '/cron_scan_job.log'}}"
     user: 'root'
-  when: "{{ clamav_cron_scan_create_task }}"
+  when: clamav_cron_scan_create_task
