@@ -2,8 +2,8 @@
 
 # Defaults vars file for clamav role
 
-# Can be used to overwrite os role values
-clamav_packages: []
+# Packages management
+clamav_packages: "{{ _clamav_packages }}"
 
 # General settings
 clamav_log_folder: '/var/log/clamav'
