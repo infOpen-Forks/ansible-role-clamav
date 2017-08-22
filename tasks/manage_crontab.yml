@@ -1,7 +1,6 @@
 ---
 
-- name: Create crontab for virus database update
-  become: True
+- name: 'CONFIG | Create crontab for virus database update'
   cron:
     name: 'Update the clamav virus database'
     cron_file: 'update_clamav_virus_database'
@@ -15,11 +14,10 @@
               ~ ' --datadir=' ~ clamav_clamd_database_directory
               ~ ' --log=' ~ clamav_log_folder ~ '/cron_update_job.log'}}"
     user: 'root'
-  when: clamav_cron_update_create_task
+  when: "clamav_cron_update_create_task | bool"
 
 
-- name: Create crontab for scan
-  become: True
+- name: 'CONFIG | Create crontab for scan'
   cron:
     name: 'Do a filesystem scan'
     cron_file: 'run_clamav_scan'
@@ -38,4 +36,4 @@
                                                | join(''))
               ~ ' --log=' ~ clamav_log_folder ~ '/cron_scan_job.log'}}"
     user: 'root'
-  when: clamav_cron_scan_create_task
+  when: "clamav_cron_scan_create_task | bool"

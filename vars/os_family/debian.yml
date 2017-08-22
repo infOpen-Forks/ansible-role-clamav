@@ -1,0 +1,8 @@
+---
+
+# Default Debian variables
+
+_clamav_packages:
+  - name: 'clamav'
+  - name: 'clamav-base'
+  - name: 'clamav-daemon'

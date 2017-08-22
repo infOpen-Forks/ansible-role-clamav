@@ -2,8 +2,8 @@
 
 # Defaults vars file for clamav role
 
-# Can be used to overwrite os role values
-clamav_packages: []
+# Packages management
+clamav_packages: "{{ _clamav_packages }}"
 
 # General settings
 clamav_log_folder: '/var/log/clamav'
@@ -12,11 +12,11 @@ clamav_config_owner: 'clamav'
 clamav_config_group: 'clamav'
 clamav_config_mode: '0644'
 
-clamav_clamd_binary: '/usr/sbin/clamd'
+clamav_clamd_binary: '/usr/bin/clamd'
 clamav_freshclam_binary: '/usr/bin/freshclam'
 clamav_clamd_service_name: 'clamav-daemon'
 clamav_freshclam_service_name: 'clamav-freshclam'
-clamav_scan_binary: '/usr/sbin/clamscan'
+clamav_scan_binary: '/usr/bin/clamscan'
 
 # Virus database update cron job
 clamav_cron_update_create_task: True
