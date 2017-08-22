@@ -2,47 +2,51 @@
 
 # Main tasks file for clamav role
 
-- name: Load OS specific variables
-  include_vars: "{{ role_path }}/vars/{{ ansible_os_family | lower }}.yml"
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
   tags:
-    - 'install'
-    - 'clamav'
+    - 'role::clamav'
+    - 'role::clamav::config'
+    - 'role::clamav::init'
+    - 'role::clamav::install'
 
 
-- name: Execute installation tasks
-  include: "{{ role_path }}/tasks/install.yml"
+- name: 'INSTALL | Manage OS family installation tasks'
+  become: True
+  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
   tags:
-    - 'install'
-    - 'clamav'
+    - 'role::clamav'
+    - 'role::clamav::install'
 
 
-- name: Execute configuration tasks
-  include: "{{ role_path }}/tasks/configure.yml"
+- name: 'CONFIG | Manage configuration tasks'
+  become: True
+  include: "{{ role_path }}/tasks/manage_config.yml"
   tags:
-    - 'configure'
-    - 'clamav'
+    - 'role::clamav'
+    - 'role::clamav::config'
 
 
-- name: Update Clamav signatures if packages updated
+- name: 'CONFIG | Update Clamav signatures if packages updated'
   become: True
   command: >
     {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
       --datadir {{ clamav_clamd_database_directory }}
-  when: clamav_install_user_packages.changed or
-        clamav_install_default_packages.changed
+  when: "check_clamav_install_packages.changed | bool"
   tags:
-    - 'configure'
-    - 'clamav'
+    - 'role::clamav'
+    - 'role::clamav::config'
 
 
-- name: Create crontabs
-  include: "{{ role_path }}/tasks/crontab.yml"
+- name: 'CONFIG | Manage crontabs'
+  become: True
+  include: "{{ role_path }}/tasks/manage_crontab.yml"
   tags:
-    - 'configure'
-    - 'clamav'
+    - 'role::clamav'
+    - 'role::clamav::config'
 
 
-- name: Create logrotate configuration
+- name: 'CONFIG | Create logrotate configuration'
   become: True
   template:
     src: "{{ role_path }}/templates/logrotate.j2"
@@ -52,5 +56,5 @@
     mode: '0644'
   with_items: "{{ clamav_logrotate_config }}"
   tags:
-    - 'configure'
-    - 'clamav'
+    - 'role::clamav'
+    - 'role::clamav::config'

@@ -1,0 +1,9 @@
+---
+
+- name: 'INSTALL | APT | Install packages'
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+  register: 'check_clamav_install_packages'
+  notify: 'HANDLER | Restart freshclam'
+  with_items: "{{ clamav_packages }}"
