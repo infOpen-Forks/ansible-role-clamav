@@ -1,12 +1,5 @@
 ---
 
-- name: 'INSTALL | APT | Install system dependencies'
-  package:
-    name: "{{ item.name }}"
-    state: "{{ item.state | default('present') }}"
-  with_items: "{{ clamav_system_dependencies }}"
-
-
 - name: 'INSTALL | APT | Install packages'
   package:
     name: "{{ item.name }}"

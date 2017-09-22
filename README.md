@@ -48,7 +48,6 @@ $ MOLECULE_DRIVER=vagrant tox
 ``` yaml
 # Packages management
 clamav_packages: "{{ _clamav_packages }}"
-clamav_system_dependencies: "{{ _clamav_system_dependencies }}"
 
 # General settings
 clamav_log_folder: '/var/log/clamav'
@@ -62,11 +61,6 @@ clamav_freshclam_binary: '/usr/bin/freshclam'
 clamav_clamd_service_name: 'clamav-daemon'
 clamav_freshclam_service_name: 'clamav-freshclam'
 clamav_scan_binary: '/usr/bin/clamscan'
-clamav_freshclam_log_file_path: '/var/log/clamav/freshclam.log'
-
-# Settings used to check freshlog locking
-clamav_freshlog_lock_retries: 5
-clamav_freshlog_lock_delay: 5
 
 # Virus database update cron job
 clamav_cron_update_create_task: True
