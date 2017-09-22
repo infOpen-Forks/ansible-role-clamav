@@ -27,17 +27,6 @@
     - 'role::clamav::config'
 
 
-- name: 'CONFIG | Update Clamav signatures if packages updated'
-  become: True
-  command: >
-    {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
-      --datadir {{ clamav_clamd_database_directory }}
-  when: "check_clamav_install_packages.changed | bool"
-  tags:
-    - 'role::clamav'
-    - 'role::clamav::config'
-
-
 - name: 'CONFIG | Manage crontabs'
   become: True
   include: "{{ role_path }}/tasks/manage_crontab.yml"
