@@ -6,6 +6,6 @@
     state: "{{ item.state | default('present') }}"
   register: 'check_clamav_install_packages'
   notify:
-    - 'HANDLER | Restart clamd'
     - 'HANDLER | Restart freshclam'
+    - 'HANDLER | Restart clamd'
   with_items: "{{ clamav_packages }}"

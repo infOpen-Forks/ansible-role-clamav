@@ -6,7 +6,9 @@ ansible:
   raw_env_vars:
     ANSIBLE_NOCOWS: 1
   group_vars:
-    all: {}
+    all:
+      clamav_clamd_service_enabled: False
+      clamav_freshclam_service_enabled: False
 dependency:
   name: 'galaxy'
 driver:
@@ -16,12 +18,21 @@ docker:
     - name: 'clamav-docker-jessie'
       image: 'debian'
       image_version: 'jessie'
+      privileged: True
+      cap_add:
+        - 'SYS_PTRACE'
     - name: 'clamav-docker-trusty'
       image: 'ubuntu'
       image_version: 'trusty'
+      privileged: True
+      cap_add:
+        - 'SYS_PTRACE'
     - name: 'clamav-docker-xenial'
       image: 'ubuntu'
       image_version: 'xenial'
+      privileged: True
+      cap_add:
+        - 'SYS_PTRACE'
 molecule:
   ignore_paths:
     - '.git'

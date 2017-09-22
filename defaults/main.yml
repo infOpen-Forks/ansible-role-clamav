@@ -14,8 +14,12 @@ clamav_config_mode: '0644'
 
 clamav_clamd_binary: '/usr/bin/clamd'
 clamav_freshclam_binary: '/usr/bin/freshclam'
+clamav_clamd_service_enabled: True
 clamav_clamd_service_name: 'clamav-daemon'
+clamav_clamd_service_state: 'started'
+clamav_freshclam_service_enabled: True
 clamav_freshclam_service_name: 'clamav-freshclam'
+clamav_freshclam_service_state: 'started'
 clamav_scan_binary: '/usr/bin/clamscan'
 
 # Virus database update cron job
