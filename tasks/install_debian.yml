@@ -13,5 +13,5 @@
     state: "{{ item.state | default('present') }}"
   notify:
     - 'HANDLER | Restart freshclam'
-    - 'HANDLER | Updated Clamv signatures'
+    - 'HANDLER | Update Clamv signatures'
   with_items: "{{ clamav_packages }}"

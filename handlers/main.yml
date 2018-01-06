@@ -2,11 +2,12 @@
 
 # Handlers main file for clamav role
 
-- name: 'HANDLER | Updated Clamv signatures'
+- name: 'HANDLER | Update Clamv signatures'
   become: True
-  command: >
-    {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
-      --datadir {{ clamav_clamd_database_directory }}
+  shell: >
+    pidof {{ clamav_freshclam_binary | basename }}
+    || {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
+    --datadir {{ clamav_clamd_database_directory }}
   tags:
     - 'role::clamav'
     - 'role::clamav::config'
