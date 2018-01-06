@@ -2,10 +2,22 @@
 
 # Handlers main file for clamav role
 
+- name: 'HANDLER | Updated Clamv signatures'
+  become: True
+  command: >
+    {{ clamav_freshclam_binary }} -u {{ clamav_config_owner }}
+      --datadir {{ clamav_clamd_database_directory }}
+  tags:
+    - 'role::clamav'
+    - 'role::clamav::config'
+    - 'role::clamav::install'
+
+
 - name: 'HANDLER | Restart clamd'
   become: True
   service:
     name: "{{ clamav_clamd_service_name }}"
+    sleep: "{{ clamav_clamd_service_sleep }}"
     state: 'restarted'
   tags:
     - 'role::clamav'
@@ -17,6 +29,7 @@
   become: True
   service:
     name: "{{ clamav_freshclam_service_name }}"
+    sleep: "{{ clamav_freshclam_service_sleep }}"
     state: 'restarted'
   tags:
     - 'role::clamav'

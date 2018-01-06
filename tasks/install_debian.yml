@@ -11,6 +11,7 @@
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
-  register: 'check_clamav_install_packages'
-  notify: 'HANDLER | Restart freshclam'
+  notify:
+    - 'HANDLER | Restart freshclam'
+    - 'HANDLER | Updated Clamv signatures'
   with_items: "{{ clamav_packages }}"
