@@ -16,7 +16,9 @@ clamav_config_mode: '0644'
 clamav_clamd_binary: '/usr/bin/clamd'
 clamav_freshclam_binary: '/usr/bin/freshclam'
 clamav_clamd_service_name: 'clamav-daemon'
+clamav_clamd_service_sleep: 60
 clamav_freshclam_service_name: 'clamav-freshclam'
+clamav_freshclam_service_sleep: 60
 clamav_scan_binary: '/usr/bin/clamscan'
 clamav_freshclam_log_file_path: '/var/log/clamav/freshclam.log'
 
