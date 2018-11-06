@@ -9,3 +9,10 @@ _clamav_packages:
 
 _clamav_system_dependencies:
   - name: 'psmisc'
+
+_clamav_config_folder: '/etc/clamav'
+
+_clamav_config_owner: 'clamav'
+_clamav_config_group: 'clamav'
+
+_clamav_clamd_service_name: 'clamav-daemon'

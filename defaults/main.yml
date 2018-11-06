@@ -8,14 +8,14 @@ clamav_system_dependencies: "{{ _clamav_system_dependencies }}"
 
 # General settings
 clamav_log_folder: '/var/log/clamav'
-clamav_config_folder: '/etc/clamav'
-clamav_config_owner: 'clamav'
-clamav_config_group: 'clamav'
+clamav_config_folder: "{{ _clamav_config_folder }}"
+clamav_config_owner: "{{ _clamav_config_owner }}"
+clamav_config_group: "{{ _clamav_config_group }}"
 clamav_config_mode: '0644'
 
 clamav_clamd_binary: '/usr/bin/clamd'
 clamav_freshclam_binary: '/usr/bin/freshclam'
-clamav_clamd_service_name: 'clamav-daemon'
+clamav_clamd_service_name: "{{ _clamav_clamd_service_name }}"
 clamav_clamd_service_sleep: 60
 clamav_freshclam_service_name: 'clamav-freshclam'
 clamav_freshclam_service_sleep: 60

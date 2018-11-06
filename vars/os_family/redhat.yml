@@ -1,0 +1,24 @@
+---
+
+# Default Debian variables
+
+_clamav_packages:
+  - name: 'clamav'
+  - name: 'clamav-server'
+  - name: 'clamav-data'
+  - name: 'clamav-update'
+  - name: 'clamav-filesystem'
+  - name: 'clamav-scanner-systemd'
+  - name: 'clamav-devel'
+  - name: 'clamav-lib'
+  - name: 'clamav-server-systemd'
+
+_clamav_system_dependencies:
+  - name: 'psmisc'
+
+_clamav_config_folder: '/etc/clamd.d'
+
+_clamav_config_owner: 'root'
+_clamav_config_group: 'root'
+
+_clamav_clamd_service_name: 'clamd'

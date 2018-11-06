@@ -3,7 +3,7 @@
 # Role tests
 
 - name: 'Converge | Prerequisites tasks'
-  hosts: 'clamav-docker-xenial'
+  hosts: 'all:!clamav-docker-centos7'
   gather_facts: False
   tasks:
     - name: 'PREREQUISITES | APT | Do an apt-get update'
@@ -14,16 +14,22 @@
       become: True
       raw: 'apt-get install -qq python2.7'
       changed_when: False
+    - name: 'PREREQUISITES | APT | Install locales'
+      apt:
+        name: 'locales'
+      changed_when: False
+
+
+- name: 'Converge | Prerequisites tasks'
+  hosts: 'clamav-docker-centos7'
+  roles:
+    - role: "geerlingguy.repo-epel"
 
 
 - name: 'Converge | Main tasks'
   hosts: 'all'
   pre_tasks:
     - block:
-        - name: 'PREREQUISITES | APT | Install locales'
-          apt:
-            name: 'locales'
-          changed_when: False
         - name: 'PREREQUISITES | Prepare locales management - Ubuntu'
           copy:
             dest: '/etc/locale.conf'
@@ -37,11 +43,15 @@
         - name: 'PREREQUISITES | Update locales'
           command: 'locale-gen'
           changed_when: False
-          when: "(ansible_distribution_release | lower) != 'trusty'"
+          when: "(ansible_distribution_release | lower) != 'trusty' and (ansible_os_family | lower) != 'redhat'"
         - name: 'PREREQUISITES | Update locales'
           command: 'locale-gen en_US.UTF-8'
           changed_when: False
           when: "(ansible_distribution_release | lower) == 'trusty'"
+        - name: 'PREREQUISITES | Update locales on redhat family'
+          command: 'localedef --quiet -c -i en_US -f UTF-8 en_US.UTF-8'
+          changed_when: False
+          when: "(ansible_os_family | lower) == 'redhat'"
       become: True
   roles:
     - role: "ansible-role-clamav"
