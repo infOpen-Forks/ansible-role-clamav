@@ -22,3 +22,6 @@ _clamav_config_owner: 'root'
 _clamav_config_group: 'root'
 
 _clamav_clamd_service_name: 'clamd'
+
+_clamav_do_restart_clamd: False
+_clamav_do_restart_freshclam: False

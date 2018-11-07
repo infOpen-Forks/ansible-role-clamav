@@ -70,6 +70,9 @@ clamav_freshclam_service_name: 'clamav-freshclam'
 clamav_scan_binary: '/usr/bin/clamscan'
 clamav_freshclam_log_file_path: '/var/log/clamav/freshclam.log'
 
+clamav_do_restart_clamd: "{{ _clamav_do_restart_clamd }}"
+clamav_do_restart_freshclam: "{{ _clamav_do_restart_freshclam }}"
+
 # Settings used to check freshlog locking
 clamav_freshlog_lock_retries: 5
 clamav_freshlog_lock_delay: 5
