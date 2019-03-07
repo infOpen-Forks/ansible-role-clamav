@@ -1,5 +1,13 @@
 ---
 
+- name: 'CONFIG | Ensure log folder exists'
+  file:
+    path: '/var/log/clamav'
+    state: 'directory'
+    owner: "{{ clamav_config_owner }}"
+    group: "{{ clamav_config_group }}"
+
+
 - name: 'CONFIG | Manage main configuration'
   template:
     src: "{{ role_path }}/templates/clamd.conf.j2"
